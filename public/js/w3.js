@@ -407,7 +407,7 @@ function log(){
             $('login').style.display = "none";
             $('signup').style.display = "none";
           } else {
-            $('logout').style.display = "none";
+            $('home').style.display = "none";
             $('upload').style.display = "none";
           }
 
@@ -415,12 +415,7 @@ function log(){
 };
 
 
-function logout(){
-  xhr.get('./logout',{},{}).then((data)=>{
-    console.log(data);
-    window.location.href = "./login.html"
-  });
-};
+
 
 addEventListener('load', function() {
   w3.includeHTML();

@@ -28,10 +28,10 @@ module.exports.comparePassword = (candidatePassword, hash)=>{
     });
 };
 
-module.exports.add_user = (username, password)=>{
+module.exports.add_user = (username, email, password)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO users (email, password) VALUES ($1, $2)',[username, password]).then((data)=>{
+            obj.none('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',[username, email, password]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
