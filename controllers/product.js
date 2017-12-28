@@ -20,4 +20,20 @@ router.get('/:id', (req,res)=> {
 
 });
 
+router.get('/delete/:id', (req, res) => {
+  Product.delete_product(req.params.id).then((data)=>{
+    res.send({msg:data});
+    }).catch((err)=> {
+        throw err;
+  });
+});
+
+router.post('/update/:id', (req, res)=> {
+  Product.update_product(req.body.name, req.body.price, req.params.id).then((data)=> {
+    res.send({msg:data});
+  }).catch((err)=> {
+    throw err;
+  });
+});
+
 module.exports = router;

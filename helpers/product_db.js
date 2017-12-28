@@ -3,7 +3,7 @@ const db = require('./db');
 module.exports.add_product = (name, path, price)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO products (name, path, price) VALUES ($1, $2, $3)',[name, path, price]).then((data)=>{
+            obj.none('INSERT INTO products (name, path, price) VALUES ($1, $2, $3)', [name, path, price]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -40,6 +40,42 @@ module.exports.show_product = (id) =>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
           obj.one('SELECT * FROM products where id = $1',[id]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.delete_product = (id) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.none('DELETE FROM products where id = $1',[id]).then((data)=>{
+                res(data);
+                obj.done();
+            }).catch((error)=>{
+                console.log(error);
+                rej(error);
+                obj.done();
+            });
+        }).catch((error)=>{
+            console.log(error);
+            rej(error);
+        });
+    });
+}
+
+module.exports.update_product = (name, price, id ) =>{
+    return new Promise((res,rej)=>{
+        db.connect().then((obj)=>{
+          obj.result('UPDATE products SET name = $1, price = $2 WHERE id = $3',[name, price, id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
