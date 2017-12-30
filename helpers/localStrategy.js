@@ -1,4 +1,4 @@
-let User = require('./users');
+let User = require('./user_db');
 let passport = require('passport');
 let localStrategy = require('passport-local').Strategy;
 

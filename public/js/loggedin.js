@@ -5,11 +5,6 @@ function $(id) {
 
 function load_pictures() {
     xhr.get('./product/all',{},{}).then((data)=> {
-      xhr.get('./value',{},{}).then((data)=>{
-           if (data.status == 400) {
-             window.location.href = "./login.html";
-           }
-      });
       console.log(data);
       var img = [];
       for (var i=0; i<data.images.length; i++) {
@@ -90,7 +85,10 @@ function show_product() {
           console.log("done");
         });
       });
-  //  add_to_cart.addEventListener('click', add_product);
+    });
+    add_to_cart.addEventListener('click', function() {
+      xhr.post('./cart/new', {user_id:data.user, product_id:data.product.id, product_name:data.product.name}, {'Content-Type':'application/json'}).then((data)=>{
+      });
     });
   });
 };

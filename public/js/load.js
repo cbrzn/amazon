@@ -4,8 +4,10 @@ function $(id) {
 };
 function sendFile(){
     let formData = new FormData();
+    let name = $("name").value;
     let file = $("file").files[0];
     var price = $("price").value;
+    formData.append('name', name);
     formData.append('price', price);
     formData.append('file', file, file.name);
      xhr.post(`../file/uploadSingFile`,formData,{}).then((data)=>{

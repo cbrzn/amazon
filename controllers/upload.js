@@ -17,7 +17,7 @@ router.get('/getFile/:filename',(req,res)=>{
     res.download(`${__dirname}/../images/${req.params.filename}`);
 });
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
-    Product.add_product(req.file.originalname, './images/' + req.file.originalname, req.body.price);
+    Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
     console.log(req.body);
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{

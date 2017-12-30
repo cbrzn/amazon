@@ -13,7 +13,7 @@ router.get('/all',(req,res)=>{
 
 router.get('/:id', (req,res)=> {
   Product.show_product(req.params.id).then((data)=>{
-      res.send({product:data});
+      res.send({product:data, user:req.user.id});
       }).catch((err)=>{
           throw err;
       });
