@@ -87,7 +87,8 @@ function show_product() {
       });
     });
     add_to_cart.addEventListener('click', function() {
-      xhr.post('./cart/new', {user_id:data.user, product_id:data.product.id, product_name:data.product.name}, {'Content-Type':'application/json'}).then((data)=>{
+      console.log(data)
+      xhr.post('./cart/new', {user_id:data.user, product_id:data.product.id, product_name:data.product.name, product_path:data.product.path}, {'Content-Type':'application/json'}).then((data)=>{
       });
     });
   });
