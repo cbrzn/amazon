@@ -12,7 +12,7 @@ app.use(express.urlencoded({extended:false}));
 
 app.use(session({
     name: 'session',
-    keys: 'keyboard cat',
+    keys: ['keyboard cat'],
 
   // Cookie Options
   maxAge: 24 * 60 * 60 * 1000 // 24 hours
