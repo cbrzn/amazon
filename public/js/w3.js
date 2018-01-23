@@ -33,9 +33,7 @@ function log(){
      var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
         console.log(data);
-       if (data.status == 400) {
-            window.location.href = "./login.html?";
-       }
+
        if (data.session){
           $('login').style.display = "none";
           $('signup').style.display = "none";
