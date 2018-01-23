@@ -29,6 +29,7 @@ router.post('/login', auth.isLogged,function(req, res, next) {
 
 
 router.post('/signup',auth.isLogged,(req, res, next) => {
+         console.dir(req.body);
          User.add_user(req.body.username, req.body.email, req.body.password);
          res.send({status:200});
 });
