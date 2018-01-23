@@ -1,5 +1,5 @@
 const express = require('express');
-let session = require('express-session');
+let session = require('cookie-session');
 let passport = require('passport');
 const config = require('./helpers/config');
 const app = express();
@@ -10,9 +10,11 @@ app.use(express.json());
 app.use(express.urlencoded({extended:false}));
 
 app.use(session({
-    secret: 'keyboard cat',
-    resave: false,
-    saveUninitialized: false
+    name: 'session',
+    keys: 'keyboard cat',
+
+  // Cookie Options
+  maxAge: 24 * 60 * 60 * 1000 // 24 hours
 }));
 
 app.use(passport.initialize());
@@ -33,4 +35,4 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
-app.listen(3000);
+app.listen(3001);
