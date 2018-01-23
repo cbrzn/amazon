@@ -3,6 +3,7 @@ let session = require('cookie-session');
 let passport = require('passport');
 const config = require('./helpers/config');
 const app = express();
+const port = process.env.PORT || 8000;
 
 
 app.use(express.static(__dirname + '/public'));
@@ -35,4 +36,4 @@ passport.deserializeUser(function(user, done) {
     done(null, user);
 });
 
-app.listen(3001);
+app.listen(port);
