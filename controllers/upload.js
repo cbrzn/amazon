@@ -1,6 +1,13 @@
 const express = require('express');
 const multer = require('multer');
+var cloudinary = require('cloudinary');
 let Product = require('./../helpers/product_db');
+
+cloudinary.config({
+   cloud_name: 'zingaring',
+   api_key: '195729922234217',
+   api_secret: 'rul2JCiaHBPULlxuKDd04N5zFJ8'
+});
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
