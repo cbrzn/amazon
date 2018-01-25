@@ -12,7 +12,7 @@ cloudinary.config({
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, ' https://api.cloudinary.com/v1_1/zingaring/image/upload');
+      cb(null, 'https://api.cloudinary.com/v1_1/zingaring/image/upload');
     },
     filename: function (req, file, cb) {
       cb(null, `${file.originalname}`)
