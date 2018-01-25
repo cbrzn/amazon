@@ -8,7 +8,7 @@ cloudinary.config({
    api_key: '195729922234217',
    api_secret: 'rul2JCiaHBPULlxuKDd04N5zFJ8'
 });
-cloudinary.v2.uploader.upload(`./public/images/${req.params.filename}`, 
+cloudinary.v2.uploader.upload('./public/images/' + req.file.originalname, 
 function(error, result) {console.log(result)});
 
 let storage = multer.diskStorage({
