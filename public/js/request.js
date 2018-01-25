@@ -4,9 +4,9 @@ function $(id) {
 };
 
 function session(){
-    let username = $('email').value;
+    let email = $('email').value;
     let password = $('password').value;
-    xhr.post(`./login`,{username:username,password:password},{'Content-Type':'application/json'}).then((data)=>{
+    xhr.post(`./login`,{username:email,password:password},{'Content-Type':'application/json'}).then((data)=>{
       console.log(data);
         if (data.status != 400) {
             window.location.href = "./index.html";
