@@ -12,7 +12,7 @@ cloudinary.config({
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, './public/images');
+      cb(null, ' https://api.cloudinary.com/v1_1/zingaring/image/upload');
     },
     filename: function (req, file, cb) {
       cb(null, `${file.originalname}`)
@@ -25,9 +25,9 @@ router.get('/getFile/:filename',(req,res)=>{
     res.download(`${__dirname}/../images/${req.params.filename}`);
 });
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
-    Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
-    cloudinary.uploader.upload('./public/images/' + req.file.originalname,
+    cloudinary.uploader.upload(req.file.originalname,
     function(result) {console.log(result)});
+    Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});
