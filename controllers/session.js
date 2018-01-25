@@ -29,8 +29,8 @@ router.post('/login', auth.isLogged,function(req, res, next) {
 
 
 router.post('/signup',auth.isLogged,(req, res, next) => {
-         console.dir(req.body);
          User.add_user(req.body.username, req.body.email, req.body.password);
+         console.log(req.body);
          res.send({status:200});
 });
 

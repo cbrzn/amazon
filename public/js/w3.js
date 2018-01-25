@@ -41,6 +41,13 @@ function log(){
           $('home').style.display = "none";
           $('cart').style.display = "none";
           $('upload').style.display = "none";
+          $('logout').style.display = "none";
+          $('logout').addEventListener('click', function() {
+            xhr.get('./logout',{},{}).then((data)=>{
+              if (data.status == "Bye!")
+              window.location.href = "./index.html"
+            })
+          });
       }
    });
  };
