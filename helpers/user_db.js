@@ -6,7 +6,6 @@ module.exports.getUserByUsername = (username, password)=>{
             obj.one('SELECT * FROM users where email = $1 and password = $2',[username, password]).then((data)=>{
                 res(data);
                 obj.done();
-                return res.end();
             }).catch((error)=>{
                 console.log(error);
                 rej(error);
