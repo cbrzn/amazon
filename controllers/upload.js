@@ -1,5 +1,5 @@
 const express = require('express');
-const multer = require('multer-cloudinary');
+const multer_cloudinary = require('multer-cloudinary');
 const cloudinary = require('cloudinary');
 let Product = require('./../helpers/product_db');
 
@@ -20,7 +20,7 @@ cloudinary.config({
     })
 let upload = multer({storage:storage}); */
 
-var cloudinaryStorage = multerCloudinary({cloudinary: cloudinary});
+var cloudinaryStorage = multer_cloudinary({cloudinary: cloudinary});
 var cloudinaryUpload = multer({storage: cloudinaryStorage});
 
 let router = express.Router();
