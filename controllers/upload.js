@@ -18,7 +18,7 @@ Cloudinary.config({
       cb(null, `${file.originalname}`)
        }
     }) */
-let upload = multer({dest: "https://api.cloudinary.com/v1_1/zingaring/image/upload"});
+let upload = multer({dest: "https://res.cloudinary.com/zingaring/image/upload/"});
 
 
 let router = express.Router();
@@ -29,7 +29,7 @@ router.get('/getFile/:filename',(req,res)=>{
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     Cloudinary.uploader.upload(req.file.originalname,
     function(result) {console.log(result)});
-    Product.add_product(req.body.name, 'https://api.cloudinary.com/v1_1/zingaring/image/upload/' + req.file.originalname, req.body.price);
+    Product.add_product(req.body.name, 'https://res.cloudinary.com/zingaring/image/upload/' + req.file.originalname, req.body.price);
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});
