@@ -8,8 +8,7 @@ cloudinary.config({
    api_key: '195729922234217',
    api_secret: 'rul2JCiaHBPULlxuKDd04N5zFJ8'
 });
-cloudinary.v2.uploader.upload('./public/images/' + req.file.originalname, 
-function(error, result) {console.log(result)});
+
 
 let storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -27,7 +26,8 @@ router.get('/getFile/:filename',(req,res)=>{
 });
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
-    console.log(req.body);
+    cloudinary.uploader.upload('./public/images/' + req.file.originalname,
+    function(result) {console.log(result)});
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});
