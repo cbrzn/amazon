@@ -1,6 +1,6 @@
 const express = require('express');
-const multer = require('multer');
-var cloudinary = require('cloudinary');
+const multer = require('multer-cloudinary');
+const cloudinary = require('cloudinary');
 let Product = require('./../helpers/product_db');
 
 cloudinary.config({
@@ -10,7 +10,7 @@ cloudinary.config({
 });
 
 
-let storage = multer.diskStorage({
+/*let storage = multer.diskStorage({
     destination: function (req, file, cb) {
       cb(null, 'https://api.cloudinary.com/v1_1/zingaring/image/upload');
     },
@@ -18,15 +18,19 @@ let storage = multer.diskStorage({
       cb(null, `${file.originalname}`)
        }
     })
-let upload = multer({storage:storage});
+let upload = multer({storage:storage}); */
+
+var cloudinaryStorage = multerCloudinary({cloudinary: cloudinary});
+var cloudinaryUpload = multer({storage: cloudinaryStorage});
+
 let router = express.Router();
 
 router.get('/getFile/:filename',(req,res)=>{
     res.download(`${__dirname}/../images/${req.params.filename}`);
 });
-router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
-    cloudinary.uploader.upload(req.file.originalname,
-    function(result) {console.log(result)});
+router.post('/uploadSingFile',cloudinaryUpload.fields([{name: 'file', maxCount:1}]),(req,res)=>{
+  //  cloudinary.uploader.upload(req.file.originalname,
+  //  function(result) {console.log(result)});
     Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
