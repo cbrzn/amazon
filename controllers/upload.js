@@ -27,7 +27,7 @@ router.get('/getFile/:filename',(req,res)=>{
     res.download(`${__dirname}/../images/${req.params.filename}`);
 });
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
-    Cloudinary.uploader.upload(req.file.originalname,
+    Cloudinary.uploader.upload('/home/cesar/Downloads/'+req.file.originalname,
     function(result) {
       Product.add_product(req.body.name, 'https://res.cloudinary.com/zingaring/image/upload/' + result.public_id, req.body.price);
     });
