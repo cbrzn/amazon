@@ -27,7 +27,7 @@ router.get('/getFile/:filename',(req,res)=>{
     res.download(`${__dirname}/../images/${req.params.filename}`);
 });
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
-    cloudinary.uploader.upload(req.file.originalname,
+    Cloudinary.uploader.upload(req.file.originalname,
     function(result) {console.log(result)});
     Product.add_product(req.body.name, './images/' + req.file.originalname, req.body.price);
 });
