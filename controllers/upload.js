@@ -18,7 +18,7 @@ cloudinary.config({
       cb(null, `${file.originalname}`)
        }
     })*/
-let upload = multer({dest: "./uploads/")});
+let upload = multer({dest: "./uploads/"});
 
 
 let router = express.Router();
