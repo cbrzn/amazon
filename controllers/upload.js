@@ -29,7 +29,7 @@ router.get('/getFile/:filename',(req,res)=>{
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     Cloudinary.uploader.upload(req.file.originalname,
     function(result) {console.log(result)});
-    Product.add_product(req.body.name, 'https://api.cloudinary.com/v1_1/zingaring/image/upload' + req.file.originalname, req.body.price);
+    Product.add_product(req.body.name, 'https://api.cloudinary.com/v1_1/zingaring/image/upload/' + req.file.originalname, req.body.price);
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});
