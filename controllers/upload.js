@@ -1,12 +1,14 @@
 const express = require('express');
 const multer_cloudinary = require('multer-cloudinary');
-const cloudinary = require('cloudinary');
+const cloud = require('cloudinary');
 let Product = require('./../helpers/product_db');
 
 cloudinary.config({
+  {
    cloud_name: 'zingaring',
    api_key: '195729922234217',
    api_secret: 'rul2JCiaHBPULlxuKDd04N5zFJ8'
+  }
 });
 
 
@@ -20,7 +22,7 @@ cloudinary.config({
     })
 let upload = multer({storage:storage}); */
 
-var cloudinaryStorage = multer_cloudinary({cloudinary: cloudinary});
+var cloudinaryStorage = multer_cloudinary({cloudinary: cloud});
 var cloudinaryUpload = multer({storage: cloudinaryStorage});
 
 let router = express.Router();
