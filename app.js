@@ -3,7 +3,7 @@ let session = require('express-session');
 let passport = require('passport');
 const config = require('./helpers/config');
 const app = express();
-const port = process.env.PORT || 8000;
+const port = process.env.PORT || 3000;
 
 
 app.use(express.static(__dirname + '/public'));

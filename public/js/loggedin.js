@@ -9,7 +9,6 @@ function load_pictures() {
       var img = [];
       for (var i=0; i<data.images.length; i++) {
         var images = $('images');
-        var name_and_img = document.createElement("test");
         var name = document.createElement("name");
         img[i] = new Image();
         img[i].setAttribute('src', data.images[i].path);
@@ -19,9 +18,8 @@ function load_pictures() {
         img[i].style.padding = "60px 20px";
         name.innerHTML = data.images[i].name;
         name.setAttribute("style", "text-align:center");
-        name_and_img.appendChild(img[i]);
-        name_and_img.appendChild(name);
-        images.appendChild(name_and_img);
+        images.appendChild(img[i]);
+        images.appendChild(name);
         img[i].addEventListener('click', show_product);
         }
    });

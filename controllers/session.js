@@ -1,7 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const auth = require('./../middlewares/isAuth')
-let User = require('./../helpers/user_db');
+let user = require('./../helpers/user_db');
 let router = express.Router();
 
 router.post('/login', auth.isLogged,function(req, res, next) {
@@ -28,9 +28,8 @@ router.post('/login', auth.isLogged,function(req, res, next) {
 });
 
 
-router.post('/signup',auth.isLogged,(req, res, next) => {
-         User.add_user(req.body.username, req.body.email, req.body.password);
-         console.log(req.body);
+router.post('/signup',auth.isLogged,function(req, res, next) {
+         user.add_user(req.body.username, req.body.email, req.body.password);
          res.send({status:200});
 });
 

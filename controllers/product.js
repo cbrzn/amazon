@@ -1,10 +1,10 @@
 const express = require('express');
 let router = express.Router();
-let Product = require('./../helpers/product_db');
+let product = require('./../helpers/product_db');
 
 
 router.get('/all',(req,res)=>{
-    Product.show_all_products().then((data)=>{
+  product.show_all_products().then((data)=>{
         res.send({images:data});
         }).catch((err)=>{
             throw err;
@@ -12,8 +12,8 @@ router.get('/all',(req,res)=>{
     });
 
 router.get('/:id', (req,res)=> {
-  Product.show_product(req.params.id).then((data)=>{
-      res.send({product:data, user:req.user.id});
+  product.show_product(req.params.id).then((data)=>{
+      res.send({product:data});
       }).catch((err)=>{
           throw err;
       });
@@ -21,7 +21,7 @@ router.get('/:id', (req,res)=> {
 });
 
 router.get('/delete/:id', (req, res) => {
-  Product.delete_product(req.params.id).then((data)=>{
+  product.delete_product(req.params.id).then((data)=>{
     res.send({msg:data});
     }).catch((err)=> {
         throw err;
@@ -29,7 +29,7 @@ router.get('/delete/:id', (req, res) => {
 });
 
 router.post('/update/:id', (req, res)=> {
-  Product.update_product(req.body.name, req.body.price, req.params.id).then((data)=> {
+  product.update_product(req.body.name, req.body.price, req.params.id).then((data)=> {
     res.send({msg:data});
   }).catch((err)=> {
     throw err;
