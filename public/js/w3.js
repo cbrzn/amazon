@@ -37,20 +37,22 @@ function log(){
        if (!data.session){
           $('login').style.display = "block";
           $('signup').style.display = "block";
-          $('logout').addEventListener('click', function() {
-            xhr.get('./logout',{},{}).then((data)=>{
-              if (data.status == "Bye!")
-              window.location.href = "./index.html"
-            })
-          });
        } else {
           $('home').style.display = "block";
           $('cart').style.display = "block";
           $('upload').style.display = "block";
           $('logout').style.display = "block";
-      }
-   });
- };
+          $('logout').addEventListener('click', function() {
+             xhr.get('./logout',{},{}).then((data) => {
+               if (data.status == "Bye!") {
+                 alert("You have logged out!")
+                 window.location.href = "./index.html"
+               }
+             })
+           });
+          }
+       });
+     };
 
 addEventListener('load', function() {
   w3.includeHTML();
