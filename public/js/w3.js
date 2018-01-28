@@ -34,9 +34,9 @@ function log(){
      xhr.get('./value',{},{}).then((data)=>{
         console.log(data);
 
-       if (data.session){
-          $('login').style.display = "none";
-          $('signup').style.display = "none";
+       if (!data.session){
+          $('login').style.display = "block";
+          $('signup').style.display = "block";
           $('logout').addEventListener('click', function() {
             xhr.get('./logout',{},{}).then((data)=>{
               if (data.status == "Bye!")
@@ -44,10 +44,10 @@ function log(){
             })
           });
        } else {
-          $('home').style.display = "none";
-          $('cart').style.display = "none";
-          $('upload').style.display = "none";
-          $('logout').style.display = "none";
+          $('home').style.display = "block";
+          $('cart').style.display = "block";
+          $('upload').style.display = "block";
+          $('logout').style.display = "block";
       }
    });
  };
