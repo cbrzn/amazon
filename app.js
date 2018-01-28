@@ -1,5 +1,6 @@
 const express = require('express');
 let session = require('express-session');
+const morgan = require('morgan');
 let passport = require('passport');
 const config = require('./helpers/config');
 const app = express();
@@ -18,6 +19,7 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(morgan('combined'));
 
 app.get('/', (req, res) => {
   res.redirect('./index.html');
