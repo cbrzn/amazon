@@ -34,10 +34,7 @@ function log(){
      xhr.get('./value',{},{}).then((data)=>{
         console.log(data);
 
-       if (!data.session){
-          $('login').style.display = "block";
-          $('signup').style.display = "block";
-       } else {
+       if (data.session){
           $('home').style.display = "block";
           $('cart').style.display = "block";
           $('upload').style.display = "block";
@@ -50,6 +47,9 @@ function log(){
                }
              })
            });
+       } else {
+         $('login').style.display = "block";
+         $('signup').style.display = "block";
           }
        });
      };
