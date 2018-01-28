@@ -15,5 +15,3 @@ function session(){
         }
     });
 };
-
-$('login').addEventListener('click', session);
