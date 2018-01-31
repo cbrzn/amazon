@@ -39,6 +39,7 @@ function show_product() {
     var add_to_cart = document.createElement('button');
     var name = document.createElement('p');
     var price = document.createElement('p');
+    var quantity = document.createElement('input');
     name.innerHTML = data.product.name;
     price.innerHTML = "Price: " + data.product.price;
     modify.innerHTML = "Edit";
@@ -59,11 +60,17 @@ function show_product() {
     add_to_cart.style.display = "block";
     name.setAttribute("style", "text-align:center");
     price.setAttribute("style", "text-align:center");
+    quantity.setAttribute("id", "quantity");
+    quantity.setAttribute("type", "number");
+    quantity.setAttribute("placeholder", "cantidad");
+    quantity.style.margin = "0 auto";
+    quantity.style.display = "block";
     images.appendChild(name);
     images.appendChild(price);
     images.appendChild(img);
     images.appendChild(modify);
     images.appendChild(erase);
+    images.appendChild(quantity);
     images.appendChild(add_to_cart);
     erase.addEventListener('click', function() {
       xhr.get(`./product/delete/${img.id}`,{},{}).then((data)=>{
@@ -85,8 +92,10 @@ function show_product() {
       });
     });
     add_to_cart.addEventListener('click', function() {
-      console.log(data)
-      xhr.post('./cart/new', {user_id:data.user, product_id:data.product.id, product_name:data.product.name, product_path:data.product.path}, {'Content-Type':'application/json'}).then((data)=>{
+      var quantity = $('quantity').value;
+      var total = parseInt(data.product.price) * parseInt(quantity);
+      xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total}, {'Content-Type':'application/json'}).then((data)=>{
+
       });
     });
   });

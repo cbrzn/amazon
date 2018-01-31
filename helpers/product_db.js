@@ -1,9 +1,9 @@
 const db = require('./db');
 
-module.exports.add_product = (name, path, price)=>{
+module.exports.add_product = (name, path, price, user_id)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO products (name, path, price) VALUES ($1, $2, $3)', [name, path, price]).then((data)=>{
+            obj.none('INSERT INTO products (name, path, price, user_id) VALUES ($1, $2, $3, $4)', [name, path, price, user_id]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

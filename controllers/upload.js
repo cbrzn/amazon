@@ -19,7 +19,7 @@ router.get('/getFile/:filename',(req,res)=>{
 router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     cloudinary.uploader.upload(req.file.path,
     function(result) {
-      Product.add_product(req.body.name, result.secure_url, req.body.price);
+      Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id);
     });
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
