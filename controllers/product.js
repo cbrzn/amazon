@@ -12,8 +12,13 @@ router.get('/all',(req,res)=>{
     });
 
 router.get('/:id', (req,res)=> {
+  if (req.user === undefined) {
+    var user_id = null;
+  } else {
+    var user_id = req.user.id;
+  }
   product.show_product(req.params.id).then((data)=>{
-      res.send({product:data});
+      res.send({product:data, id:user_id});
       }).catch((err)=>{
           throw err;
       });

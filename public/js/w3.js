@@ -32,8 +32,6 @@ function $(id) {
 function log(){
      var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
-        console.log(data);
-
        if (data.session){
           $('home').style.display = "block";
           $('cart').style.display = "block";

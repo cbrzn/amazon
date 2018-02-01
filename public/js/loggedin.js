@@ -5,7 +5,6 @@ function $(id) {
 
 function load_pictures() {
     xhr.get('./product/all',{},{}).then((data)=> {
-      console.log(data);
       var img = [];
       for (var i=0; i<data.images.length; i++) {
         var images = $('images');
@@ -32,7 +31,6 @@ function show_product() {
     var title = $('title');
     images.innerHTML = "";
     title.innerHTML = "Product"
-    console.log(data);
     var img = document.createElement('img');
     var modify = document.createElement('button');
     var erase = document.createElement('button');
@@ -68,10 +66,14 @@ function show_product() {
     images.appendChild(name);
     images.appendChild(price);
     images.appendChild(img);
-    images.appendChild(modify);
-    images.appendChild(erase);
-    images.appendChild(quantity);
-    images.appendChild(add_to_cart);
+    if (data.id !== null) {
+      if (data.id === data.product.user_id) {
+        images.appendChild(modify);
+        images.appendChild(erase);
+      }
+      images.appendChild(quantity);
+      images.appendChild(add_to_cart);
+    }
     erase.addEventListener('click', function() {
       xhr.get(`./product/delete/${img.id}`,{},{}).then((data)=>{
         console.log(data);
