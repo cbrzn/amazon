@@ -1,6 +1,7 @@
 const express = require('express');
 let router = express.Router();
 let cart = require('./../helpers/cart_db');
+var nodemailer = require('nodemailer');
 
 
 router.post('/new', (req, res) => {
@@ -29,4 +30,41 @@ router.get('/delete/:id', (req, res) => {
     });
 });
 
+
+
+router.get('/create_order',(req, res)=> {
+  var transporter = nodemailer.createTransport({
+   service: 'gmail',
+   auth: {
+          user: 'projectmailer3@gmail.com',
+          pass: 'Contrasena1'
+      }
+  });
+
+  // setup e-mail data with unicode symbols
+      var mailOptions = {
+  // sender address
+          from: '<email@gmail.com>',
+  // list of receivers
+          to: 'cesarbrazon10@gmail.com',
+  // Subject line
+          subject: 'Testing test ✔',
+          attachments: [
+            {
+              filename: 'test',
+              path: './public/order.html',
+            }
+          ]
+      };
+
+
+    transporter.sendMail(mailOptions, function(error, info){
+        if(error){
+            console.log(error);
+        }else{
+            console.log('Message sent: ' + info.response);
+        }
+    });
+    res.send({test:"test"});
+  });
 module.exports = router;

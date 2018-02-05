@@ -31,7 +31,12 @@ function cart() {
         })
         })
       }
-  });
+    $('send_card').addEventListener('click', function() {
+    xhr.get('./cart/create_order',{},{}).then((data) => {
+      alert("mail send");
+      })
+    });
+  })
 };
 
 addEventListener('load', cart);
