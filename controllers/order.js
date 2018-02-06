@@ -1,8 +1,9 @@
 const express = require('express');
 let router = express.Router();
 let order = require('./../helpers/order_db');
+var nodemailer = require('nodemailer');
 
-router.get('/create_order',(req, res)=> {
+router.post('/send_email',(req, res)=> {
   var transporter = nodemailer.createTransport({
    service: 'gmail',
    auth: {
@@ -10,7 +11,8 @@ router.get('/create_order',(req, res)=> {
           pass: 'Contrasena1'
       }
   });
-
+  var name = req.body.products_name[1];
+  var link = "http://"+req.get('host')+"/new.html";
   // setup e-mail data with unicode symbols
       var mailOptions = {
   // sender address
@@ -18,11 +20,8 @@ router.get('/create_order',(req, res)=> {
   // list of receivers
           to: 'cesarbrazon10@gmail.com',
   // Subject line
-          subject: 'Testing test ✔',
-  // plaintext body
-          text: 'It works! ✔',
-  // rich text html body
-          html: "<p>It works</p>",
+          subject: 'Nueva compra',
+          html: "<p>"+name+"</p> Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a>"
       };
 
     transporter.sendMail(mailOptions, function(error, info){
@@ -32,9 +31,14 @@ router.get('/create_order',(req, res)=> {
             console.log('Message sent: ' + info.response);
         }
     });
-    res.send({test:"test"});
+    res.send({product_name:req.body.products_name, user_name:req.body.user_name, user_lastname:req.body.user_lastname, total:req.body.total, quantity:req.body.quantity, price:req.body.price});
   });
-  
+
+router.post('/create',(req,res) => {
+    order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total);
+      res.send({status:200})
+})
+
 router.post('/update_comment', (req, res) => {
   order.add_cart(req.body.user_id, req.body.product_id, req.body.product_name, req.body.product_path).then((data)=>{
       res.send({msg:data});

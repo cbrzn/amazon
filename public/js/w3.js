@@ -33,7 +33,6 @@ function log(){
      var xhr = new XHR();
      xhr.get('./value',{},{}).then((data)=>{
        if (data.session){
-          $('home').style.display = "block";
           $('cart').style.display = "block";
           $('upload').style.display = "block";
           $('logout').style.display = "block";

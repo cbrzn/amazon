@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 module.exports.getUserByUsername = (username, password)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.one('SELECT * FROM users where username = $1 and password = $2',[username, password]).then((data)=>{
+            obj.one('SELECT * FROM users where email = $1 and password = $2',[username, password]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -28,10 +28,10 @@ module.exports.comparePassword = (candidatePassword, hash)=>{
     });
 };
 
-module.exports.add_user = (username, email, password)=>{
+module.exports.add_user = (username, email, password, name, lastname)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-            obj.none('INSERT INTO users (username, email, password) VALUES ($1, $2, $3)',[username, email, password]).then((data)=>{
+            obj.none('INSERT INTO users (username, email, password, name, last_name) VALUES ($1, $2, $3, $4, $5)',[username, email, password, name, lastname]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
