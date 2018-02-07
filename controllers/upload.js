@@ -21,6 +21,7 @@ router.post('/uploadSingFile',upload.single('file'),(req,res)=>{
     function(result) {
       Product.add_product(req.body.name, result.secure_url, req.body.price, req.user.id);
     });
+    res.send({status:200});
 });
 router.post('/uploadMultFile',upload.array('files[]'),(req,res)=>{
     res.send({status:200});

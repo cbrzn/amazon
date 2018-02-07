@@ -11,8 +11,10 @@ function sendFile(){
     formData.append('price', price);
     formData.append('file', file, file.name);
      xhr.post(`../file/uploadSingFile`,formData,{}).then((data)=>{
+       if (data.status === 200) {
        alert("file uploaded");
-     });
+     }
+  });
 };
 
 

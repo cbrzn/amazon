@@ -41,7 +41,7 @@ function show_product() {
     name.innerHTML = data.product.name;
     price.innerHTML = "Price: " + data.product.price;
     modify.innerHTML = "Edit";
-    add_to_cart.innerHTML = "Add to cart"
+    add_to_cart.innerHTML = "Add to cart";
     erase.innerHTML = "Delete";
     img.setAttribute('src', data.product.path);
     img.setAttribute('id', data.product.id);
@@ -97,7 +97,9 @@ function show_product() {
       var quantity = $('quantity').value;
       var total = parseInt(data.product.price) * parseInt(quantity);
       xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total}, {'Content-Type':'application/json'}).then((data)=>{
-
+        if (data.msg !== null) {
+          alert("product added");
+        }
       });
     });
   });

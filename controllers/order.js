@@ -11,8 +11,14 @@ router.post('/send_email',(req, res)=> {
           pass: 'Contrasena1'
       }
   });
-  var name = req.body.products_name[1];
+
+  var name = req.body.products_name.length;
   var link = "http://"+req.get('host')+"/new.html";
+  var text = "<ul>";
+  for (i=0; i<req.body.products_name.length; i++) {
+    text += "<li>" + req.body.products_name[i] + " " + req.body.user_name + " " + req.body.user_lastname + " " + req.body.price[i] + " " + req.body.quantity[i] + "</li>";
+  }
+  text += "</ul> Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a>";
   // setup e-mail data with unicode symbols
       var mailOptions = {
   // sender address
@@ -21,7 +27,7 @@ router.post('/send_email',(req, res)=> {
           to: 'cesarbrazon10@gmail.com',
   // Subject line
           subject: 'Nueva compra',
-          html: "<p>"+name+"</p> Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a>"
+          html: text,
       };
 
     transporter.sendMail(mailOptions, function(error, info){

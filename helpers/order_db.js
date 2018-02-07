@@ -18,10 +18,10 @@ module.exports.add_order = (bill_number, first_name, last_name, total)=>{
     });
 }
 
-module.exports.show_all_orders = (user_id)=>{
+module.exports.show_all_orders = ()=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT * FROM orders WHERE user_id = $1',[user_id]).then((data)=>{
+          obj.any('SELECT * FROM orders').then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
@@ -109,10 +109,10 @@ module.exports.comment_order = (comment, bill_number)=>{
     });
 }
 
-module.exports.order_by_user = (last_name, first_name)=>{
+module.exports.order_by_lastname = (last_name)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT FROM orders WHERE last_name = $1 AND first_name = $2',[last_name, first_name]).then((data)=>{
+          obj.any('SELECT FROM orders WHERE last_name = $1',[last_name]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{

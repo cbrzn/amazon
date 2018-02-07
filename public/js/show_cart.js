@@ -45,7 +45,7 @@ function cart() {
       }
       var arr_price = [];
       for (var i=0; i<data.product.length; i++) {
-        arr_price.push(data.product[i].quantity);
+        arr_price.push(data.product[i].product_price);
       }
       var user_name = data.session.name;
       var user_lastname = data.session.last_name;
