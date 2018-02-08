@@ -56,7 +56,7 @@ router.post('/update_comment', (req, res) => {
 
 router.get('/all', (req, res) => {
   order.show_all_orders().then((data) =>{
-    res.send({product:data});
+    res.send({orders:data});
     }).catch((err)=>{
         throw err;
     });

@@ -11,13 +11,13 @@ router.post('/login', auth.isLogged,function(req, res, next) {
         }
         if (!user) {
             return res.status(401).send({
-                err: info
+                status:401
             });
         }
         req.logIn(user, function(err) {
             if (err) {
                 return res.status(500).send({
-                    err: 'Could not log in user'
+                    status:500
                 });
             }
             res.status(200).send({

@@ -94,7 +94,7 @@ module.exports.change_status = (status, bill_number)=>{
 module.exports.comment_order = (comment, bill_number)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('UPDATE FROM orders SET comment = $1 WHERE bill_number = $2',[comment, bill_number]).then((data)=>{
+          obj.any('UPDATE orders SET comment = $1 WHERE bill_number = $2',[comment, bill_number]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
