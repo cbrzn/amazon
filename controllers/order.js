@@ -12,13 +12,12 @@ router.post('/send_email',(req, res)=> {
       }
   });
 
-  var name = req.body.products_name.length;
   var link = "http://"+req.get('host')+"/new.html";
-  var text = "<ul>";
+  var text = "<h1>" + req.body.user_name + " " + req.body.user_lastname + "</h1><ul>";
   for (i=0; i<req.body.products_name.length; i++) {
-    text += "<li>" + req.body.products_name[i] + " " + req.body.user_name + " " + req.body.user_lastname + " " + req.body.price[i] + " " + req.body.quantity[i] + "</li>";
+    text += "<li>" + req.body.products_name[i] + " " + req.body.price[i] + " " + req.body.quantity[i] + "</li>";
   }
-  text += "</ul> Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a>";
+  text += "<p> Total: "+ req.body.total +"</p>Se ha realizado una nueva compra,<br> A continuacion haga click en el siguiente enlace para crear una orden.<br><a href="+link+">Nueva orden</a></ul>";
   // setup e-mail data with unicode symbols
       var mailOptions = {
   // sender address
@@ -29,11 +28,13 @@ router.post('/send_email',(req, res)=> {
           subject: 'Nueva compra',
           html: text,
       };
-
+      var status;
     transporter.sendMail(mailOptions, function(error, info){
         if(error){
+            status = false;
             console.log(error);
         }else{
+            status = true;
             console.log('Message sent: ' + info.response);
         }
     });
@@ -42,11 +43,11 @@ router.post('/send_email',(req, res)=> {
 
 router.post('/create',(req,res) => {
     order.add_order(req.body.bill, req.body.name, req.body.lastname, req.body.total);
-      res.send({status:200})
-})
+      res.send({status:200});
+});
 
 router.post('/update_comment', (req, res) => {
-  order.add_cart(req.body.user_id, req.body.product_id, req.body.product_name, req.body.product_path).then((data)=>{
+  order.comment_order(req.body.comment, req.body.bill).then((data)=>{
       res.send({msg:data});
       }).catch((err)=>{
           throw err;
@@ -54,7 +55,7 @@ router.post('/update_comment', (req, res) => {
 });
 
 router.get('/all', (req, res) => {
-  order.show_order(req.user.id).then((data) =>{
+  order.show_all_orders().then((data) =>{
     res.send({product:data});
     }).catch((err)=>{
         throw err;
@@ -62,20 +63,31 @@ router.get('/all', (req, res) => {
 });
 
 router.get('/delete/:id', (req, res) => {
-  order.delete_product_from_cart(req.user.id, req.params.id).then((data) =>{
+  order.delete_order(req.params.id).then((data) =>{
     res.send({product:data});
-    console.log(req.user.id)
     }).catch((err)=>{
         throw err;
     });
 });
 
 router.post('/update_status', (req, res) => {
-  order.add_cart(req.body.user_id, req.body.product_id, req.body.product_name, req.body.product_path).then((data)=>{
+  order.change_status(req.body.user_id, req.body.product_id, req.body.product_name, req.body.product_path).then((data)=>{
       res.send({msg:data});
       }).catch((err)=>{
           throw err;
       });
+});
+
+router.get('/check_payment/:id', (req,res) => {
+  order.check_payment_date(req.params.id).then((data) => {
+    res.send({date:data});
+  });
+});
+
+router.post('/by_lastname', (req, res) => {
+  order.order_by_lastname(req.body.lastname).then((data) => {
+    res.send({orders:data});
+  });
 });
 
 

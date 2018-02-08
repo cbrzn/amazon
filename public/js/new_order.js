@@ -1,10 +1,10 @@
-let xhr = new XHR();
 function $(id) {
     return document.getElementById(id);
 };
 
 
 function create_order(){
+    let xhr = new XHR();
     let bill = $('bill').value;
     let name = $('name').value;
     let lastname = $('lastname').value;
@@ -13,20 +13,10 @@ function create_order(){
       console.log(data);
       if (data.status == 200) {
         window.location.href = "./order.html";
-        alert("Order created!");
+        alert("Orden creada!");
       }
     });
 };
 
-function check_user() {
-  xhr.get('./value',{},{}).then((data)=>{
-    if (data.session){
-      console.log("logged")
-    } else {
-      window.location.href ="./login.html";
-    }
-  });
-}
 
 $('create_order').addEventListener('click', create_order);
-addEventListener('load', check_user);

@@ -77,7 +77,7 @@ function show_product() {
     erase.addEventListener('click', function() {
       xhr.get(`./product/delete/${img.id}`,{},{}).then((data)=>{
         console.log(data);
-        alert("You have deleted a product");
+        alert("Has eliminado en producto");
         window.location.href = "./index.html";
       });
     });
@@ -98,7 +98,7 @@ function show_product() {
       var total = parseInt(data.product.price) * parseInt(quantity);
       xhr.post('./cart/new', {product_id:data.product.id, product_name:data.product.name, product_path:data.product.path, product_price:data.product.price, quantity:quantity, total:total}, {'Content-Type':'application/json'}).then((data)=>{
         if (data.msg !== null) {
-          alert("product added");
+          alert("Producto agregado");
         }
       });
     });
@@ -116,8 +116,5 @@ function logout(){
     window.location.href = "./login.html"
   });
 };
-
-
-
 
 addEventListener('load', load_pictures);

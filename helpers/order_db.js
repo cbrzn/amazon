@@ -57,7 +57,7 @@ module.exports.delete_order = (bill_number)=>{
 module.exports.check_payment_date = (bill_number)=>{
     return new Promise((res,rej)=>{
         db.connect().then((obj)=>{
-          obj.any('SELECT payment_date FROM orders WHERE bill_number = $1',[bill_number]).then((data)=>{
+          obj.one('SELECT payment_date FROM orders WHERE bill_number = $1',[bill_number]).then((data)=>{
                 res(data);
                 obj.done();
             }).catch((error)=>{
