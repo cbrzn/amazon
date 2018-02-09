@@ -62,9 +62,17 @@ router.get('/all', (req, res) => {
     });
 });
 
+router.get('/show/:id', (req, res) => {
+  order.show_order(req.params.id).then((data) =>{
+    res.send({order:data});
+    }).catch((err)=>{
+        throw err;
+    });
+});
+
 router.get('/delete/:id', (req, res) => {
   order.delete_order(req.params.id).then((data) =>{
-    res.send({product:data});
+    res.send({order:data});
     }).catch((err)=>{
         throw err;
     });
