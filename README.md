@@ -1,1 +1,1 @@
-"third project web II" 
+example of REST API using Node with PostgresDB
